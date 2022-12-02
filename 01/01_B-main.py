@@ -11,7 +11,7 @@ def get_input_data(filename: str) -> list:
     return items
 
 
-def get_total_calories(items: list) -> int:
+def get_all_calories(items: list) -> int:
     """
     - instantiates `current_calories` and `total_calories` to 0
     - instantiates `food_items` to empty list
@@ -25,7 +25,7 @@ def get_total_calories(items: list) -> int:
     - returns `total_calories`
     """
     current_calories = 0
-    total_calories   = 0
+    all_calories     = []
     food_items       = []
 
     for item in items:
@@ -33,18 +33,31 @@ def get_total_calories(items: list) -> int:
             food_items.append(int(item))
         else:
             current_calories = sum(food_items)
-            if current_calories > total_calories:
-                total_calories = current_calories
+            all_calories.append(current_calories)
             
             food_items = []
     
-    return total_calories
+    return all_calories
+
+
+def get_top_three(all_calories: list) -> int:
+    """
+    - takes in `all_calories` list
+    - sorts `all_calories` into `sorted_calories`
+    - places the three highest calorie amounts into `top_three_calories`
+    - returns the sum of `top_three_calories`
+    """
+    sorted_calories = sorted(all_calories)
+    top_three_calories = sorted_calories[-3:]
+    
+    return sum(top_three_calories)
 
 
 def main():
-    food_items     = get_input_data('01_A-input.txt')
-    total_calories = get_total_calories(food_items)
-    print(total_calories)
+    food_items      = get_input_data('01_A-input.txt')
+    all_calories    = get_all_calories(food_items)
+    top_three_total = get_top_three(all_calories)
+    print(top_three_total)
 
 
 if __name__ == '__main__':
