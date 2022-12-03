@@ -14,7 +14,7 @@ def parse_turns(turns: list) -> list:
     """
     - takes in `list` of turns from the `encrypted study guide`
     - generated sorted list of unique turns
-    - iterates through sorted list, appending turs and number of turns to list
+    - iterates through sorted list, appending turns and number of turns to list
     - returns `list` of turns and number of turns
     """
     unique_turns  = sorted(set(turns))
