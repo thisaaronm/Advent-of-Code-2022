@@ -48,25 +48,23 @@ def calculate_score(opponent: str, player: str) -> int:
         - lose == 0
     
     Scoring:
-        rock < paper < scissors < rock
-    """
-    ## rock
-    if opponent == 'A':
-        if player == 'X': return 4 ## draw
-        if player == 'Y': return 8 ## win
-        if player == 'Z': return 3 ## lose
-    
-    ## paper
-    if opponent == 'B':
-        if player == 'X': return 1 ## lose
-        if player == 'Y': return 5 ## draw
-        if player == 'Z': return 9 ## win
+        - rock  < paper < scissors < rock
+        - A/X/1 < B/Y/2 < C/Z/3    < A/X/1
+    '''
+    if opponent == 'A': opponent = 1
+    if opponent == 'B': opponent = 2
+    if opponent == 'C': opponent = 3
 
-    ## scissors
-    if opponent == 'C':
-        if player == 'X': return 7 ## win
-        if player == 'Y': return 2 ## lose
-        if player == 'Z': return 6 ## draw
+    if player == 'X': player = 1
+    if player == 'Y': player = 2
+    if player == 'Z': player = 3
+
+    if opponent == player:
+        return 3 + player ## draw
+    elif player - opponent == 1 or player - opponent == -2:
+        return 6 + player ## win
+    else:
+        return 0 + player ## lose
 
 
 def play_game(counted_turns: list) -> int:
@@ -85,7 +83,6 @@ def play_game(counted_turns: list) -> int:
     for counted_turn in counted_turns:
         opponent, player = counted_turn[0].split(' ')
         rounds = counted_turn[1]
-        # print(opponent, player, rounds)
 
         calculated_score = calculate_score(opponent, player)
         total_score      += (calculated_score * rounds)
