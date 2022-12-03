@@ -29,25 +29,23 @@ def calculate_score(opponent: str, player: str) -> int:
     """
     - takes in opponent choice and player choice
     - returns the score as an `int`
+    """
 
-    Opponent:
-        A == rock
-        B == paper
-        C == scissors
+    '''
+    Opponent // Player
+        - A // X == rock
+        - B // Y == paper
+        - C // Z == scissors
+
+    Points (choice):
+        - rock     == 1
+        - paper    == 2
+        - scissors == 3
     
-    Player:
-        X == rock
-        Y == paper
-        Z == scissors
-    
-    Points:
-        rock     = 1
-        paper    = 2
-        scissors = 3
-    
-        win  = 6
-        lose = 0
-        draw = 3
+    Points (outcome)
+        - win  == 6
+        - draw == 3
+        - lose == 0
     
     Scoring:
         rock < paper < scissors < rock
