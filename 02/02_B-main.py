@@ -5,54 +5,47 @@ def get_puzzle_input(filename: str) -> list:
     - returns puzzle input as a `list`
     """
     with open(filename, 'r') as f:
-        turns = f.read().splitlines()
+        rounds = f.read().splitlines()
 
-    return turns
+    return rounds
 
 
-def parse_turns(turns: list) -> list:
+def parse_rounds(rounds: list) -> list:
     """
-    - takes in `list` of turns from the `encrypted study guide`
-    - generated sorted list of unique turns
-    - iterates through sorted list, appending turs and number of turns to list
-    - returns `list` of turns and number of turns
+    - takes in `list` of rounds from the `encrypted study guide`
+    - generated sorted list of unique rounds
+    - iterates through sorted list, appending rounds and number of rounds to list
+    - returns `list` of rounds and number of rounds
     """
-    unique_turns  = sorted(set(turns))
-    counted_turns = []
-    for turn in unique_turns:
-        counted_turns.append([turn, turns.count(turn)])
+    unique_rounds  = sorted(set(rounds))
+    counted_rounds = []
+    for round in unique_rounds:
+        counted_rounds.append([round, rounds.count(round)])
 
-    return counted_turns
+    return counted_rounds
 
 
 def calculate_score(opponent: str, player: str) -> int:
     """
-    - takes in opponent choice and player outcome
+    - takes in opponent's shape and player's outcome
     - returns the score as an `int`
+    """
 
-    Opponent:
-        A == rock
-        B == paper
-        C == scissors
-    
-    Player:
-        X == lose
-        Y == draw
-        Z == win
-    
-    Points:
-        win  = 6
-        lose = 0
-        draw = 3
+    '''
+    Opponent's Shape:    ||    Player's Outcome:
+        A == rock        ||        X == lose
+        B == paper       ||        Y == draw
+        C == scissors    ||        Z == win
+
+    Points
+        Shape            ||    Outcome
+        rock     1       ||    win   6
+        paper    2       ||    draw  3
+        scissors 3       ||    lose  0
     
     Scoring:
-        rock  < paper < scissors < rock
-        A/X/1 < B/Y/2 < C/Z/3    < A/X/1
-    """
-    
-    ## TODO 
-    ## - redo scoring the "correct" way
-
+        - rock (1) < paper (2) < scissors (3) < rock (1)
+    '''
     ## rock
     if opponent == 'A':
         if player == 'X': return 0 + 3 ## lose + scissors
@@ -72,12 +65,13 @@ def calculate_score(opponent: str, player: str) -> int:
         if player == 'Z': return 6 + 1 ## win  + rock
 
 
-def play_game(counted_turns: list) -> int:
+def play_game(counted_rounds: list) -> int:
     """
-    - takes in `list` of `counted_turns`
+    - takes in `list` of `counted_rounds`
     - sets `total_score` to 0
-    - iterates through `list` of `counted_turns`
-        - sets `opponent` and `player` to their respective choices
+    - iterates through `list` of `counted_rounds`
+        - sets `opponent` to their shape
+        - sets `player` to their outcome
         - sets `rounds` to the number of rounds per unique o/p combination
         - calls `calcuate_score()`, passing it `opponent` and `player`
         - increments `total_score` by the `calculated_score` * `rounds`
@@ -85,10 +79,9 @@ def play_game(counted_turns: list) -> int:
     """
     total_score = 0
 
-    for counted_turn in counted_turns:
-        opponent, player = counted_turn[0].split(' ')
-        rounds = counted_turn[1]
-        # print(opponent, player, rounds)
+    for counted_round in counted_rounds:
+        opponent, player = counted_round[0].split(' ')
+        rounds = counted_round[1]
 
         calculated_score = calculate_score(opponent, player)
         total_score      += (calculated_score * rounds)
@@ -99,9 +92,9 @@ def play_game(counted_turns: list) -> int:
 def main():
     filename = '02_A-input.txt'
 
-    puzzle_input  = get_puzzle_input(filename)
-    counted_turns = parse_turns(puzzle_input)
-    total_score   = play_game(counted_turns)
+    puzzle_input   = get_puzzle_input(filename)
+    counted_rounds = parse_rounds(puzzle_input)
+    total_score    = play_game(counted_rounds)
 
     print(total_score)
 
