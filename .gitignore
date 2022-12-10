@@ -1,4 +1,6 @@
 00/
+.vscode/
 
 .DS_Store
 tempCodeRunnerFile.py*
+*answers*
