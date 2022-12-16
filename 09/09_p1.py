@@ -68,7 +68,7 @@ def get_positions(moves: list):
 
 
 def main():
-    # filename = '09_example.txt' ## p1: 13 // p2: ?
+    # filename = '09_example1.txt' ## 13
     filename  = '09_input.txt'
     values    = get_puzzle_input(filename)
     positions = get_positions(values)
