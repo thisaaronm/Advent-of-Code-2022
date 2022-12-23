@@ -2,6 +2,6 @@
 .vscode/
 
 .DS_Store
-tempCodeRunnerFile.py*
+tempCodeRunner*
 *answers*
 *notes*
